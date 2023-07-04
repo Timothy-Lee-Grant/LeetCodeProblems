@@ -22,35 +22,41 @@ Explanation: "leeto" did not occur in "leetcode", so we return -1.
 #include <string.h>
 
 int findSubstring(char* haystack, char* needle) {
-    int index = 0;
-    int needleIndex = 0;
-    int i;
-    int found = 0;
-    int haystackLen = strlen(haystack);
-    int needleLen = strlen(needle);
-    char currentHaystackChar;
-    char currentNeedleChar;
+  //declare variables
+  int haystackLength = strlen(haystack);
+  int needleLength = strlen(needle);
+  int haystackIndex;
+  int needleIndex;
+  int found;
 
-    //given two strings
-    while(index < haystackLen)
+  //approach will be to loop through the string of haystack
+  //if the first character in needle is found with-in haystack, a secondary loop will trigger
+  //inside the secondary loop, the elements will continue to increase by 1 in both strings
+  //  if both of the elements do not match eachother, then the inner loop breaks
+  //. if no break and the entire needle string is found, then a match was found, return starting index which the inner loop started at
+
+  for(haystackIndex = 0; haystackIndex < haystackLength; haystackIndex++)
+  {
+    for(needleIndex = 0; needleIndex < needleLength; needleIndex++)
     {
-        currentHaystackChar = haystack[index];
-        currentNeedleChar = needle[needleIndex];
-
-        if(currentHaystackChar == currentNeedleChar)
-        {
-            found = 1;
-            for(i = 0; i < needleLen; i++)
-            {
-                if(haystack[index + i] != needle[needleIndex + i])
-                    found = 0;
-            }
-        }
-        if (found == 1)
-            return index;
+      //set found to be true, turn false if elements don't match
+      found = 1;
+      if(haystack[haystackIndex + needleIndex] != needle[needleIndex])
+      {
+        //elements don't match, so change found to false and break out of the inner loop
+        //keep trying each of the elements in the haystack (outter loop)
+        found = 0;
+        break;
+      }
     }
 
-    return index;
+    //if the found variable is set to true, return the index which first matched the needle
+    if(found == 1)
+      return haystackIndex;
+  }
+
+  //all elements in haystack have been searched, no match found, return -1
+  return -1;
 }
 
 int main() {
