@@ -18,29 +18,48 @@ Output: -1
 Explanation: "leeto" did not occur in "leetcode", so we return -1.
 */
 
-int strStr(char * haystack, char * needle){
+#include <stdio.h>
+#include <string.h>
 
-    int index = -1;
+int findSubstring(char* haystack, char* needle) {
+    int index = 0;
     int needleIndex = 0;
     int i;
-    bool found = false;
+    int found = 0
+    int haystackLen = strlen(haystack);
+    int needleLen = strlen(needle);
+    char currentHaystackChar;
+    char currentNeedleChar;
 
     //given two strings
-    while(index < strlen(haystack) )
+    while(index < haystackLen)
     {
-        if(haystack[index] == needle[needleIndex])
+        currentHaystackChar = haystack[index];
+        currentNeedleChar = needle[needleIndex];
+
+        if(currentHaystackChar == currentNeedleChar)
         {
-            found = true;
-            for(i = 0; i < strlen(needle); i++)
+            found = 1;
+            for(i = 0; i < needleLen; i++)
             {
-                if(haystack[index+i] != needle[needleIndex+1])
-                    found = false;
+                if(haystack[index + i] != needle[needleIndex + i])
+                    found = 0;
             }
         }
-        if (found == true)
+        if (found == 1)
             return index;
     }
-    
-    return index;
 
+    return index;
+}
+
+int main() {
+    char haystack[] = "sadbutsad";
+    char needle[] = "sad";
+
+    int index = findSubstring(haystack, needle);
+
+    printf("The first occurrence of \"%s\" in \"%s\" is at index %d.\n", needle, haystack, index);
+
+    return 0;
 }
