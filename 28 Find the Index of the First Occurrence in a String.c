@@ -25,7 +25,7 @@ int findSubstring(char* haystack, char* needle) {
     int index = 0;
     int needleIndex = 0;
     int i;
-    int found = 0
+    int found = 0;
     int haystackLen = strlen(haystack);
     int needleLen = strlen(needle);
     char currentHaystackChar;
